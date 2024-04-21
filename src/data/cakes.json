@@ -1,0 +1,56 @@
+{
+  "coko": {
+    "image": "../assets/cokoTorta.png",
+    "naziv": "ČOKO TORTA",
+    "opis": "Potpuno čokolada sa duplim kremom unutra i spolja.",
+    "akcija": true,
+    "naslov": "Čoko-manija naša najpopularnija torta je na AKCIJI!",
+    "tekst": "Do kraja meseca može biti vaša za svega 2999din!",
+    "cena": 2999
+  },
+  "duga": {
+    "image": "../assets/duga.png",
+    "naziv": "DUGA TORTA",
+    "opis": "Šarenoliki užitak sa pudingom od vanile",
+    "akcija": false,
+    "naslov": "",
+    "tekst": "",
+    "cena": 1500
+  },
+  "jagoda": {
+    "image": "../assets/jagoda.png",
+    "naziv": "TORTA SA JAGODAMA",
+    "opis": "Lagana i voćno osvežavajuća torta. Sa bogatim filom, i svežim jagodama",
+    "akcija": false,
+    "naslov": "",
+    "tekst": "",
+    "cena": 3500
+  },
+  "limun": {
+    "image": "../assets/limun.png",
+    "naziv": "LIMUN TORTA",
+    "opis": "Osvežavajuća torta sa ukusom limuna, idealna za tople letnje dane",
+    "akcija": false,
+    "naslov": "",
+    "tekst": "",
+    "cena": 2500
+  },
+  "malina": {
+    "image": "../assets/mailna.png",
+    "naziv": "MALINA TORTA",
+    "opis": "Lagana i voćno osvežavajuća torta. Sa bogatim filom, i svežim malinama",
+    "akcija": false,
+    "naslov": "",
+    "tekst": "",
+    "cena": 3800
+  },
+  "oreo": {
+    "image": "../assets/oreo.png",
+    "naziv": "OREO TORTA",
+    "opis": "Sočna torta sa ukusom oreo keksa, za prave ljubitelje slatkog",
+    "akcija": false,
+    "naslov": "",
+    "tekst": "",
+    "cena": 2999
+  }
+}

@@ -1,0 +1,56 @@
+{
+  "baklava": {
+    "image": "../assets/baklava.png",
+    "naziv": "BAKLAVA",
+    "opis": "Baklava sa prelivom od keksa i orasa.",
+    "akcija": false,
+    "naslov": "",
+    "tekst": "",
+    "cena": 900
+  },
+  "ledenaKocka": {
+    "image": "../assets/ledena-kocka.png",
+    "naziv": "LEDENA KOCKA",
+    "opis": "Sočna kakao kora i ukusan beli krem preliven čokoladom, prava domaća ledena kocka.",
+    "akcija": false,
+    "naslov": "",
+    "tekst": "",
+    "cena": 170
+  },
+  "princesKrofne": {
+    "image": "../assets/princesKrofne.png",
+    "naziv": "PRINCES KROFNE",
+    "opis": "Tradicionalni recept za korice u kombinaciji sa vanil kremom i slatkom pavlakom budi sećanje na detinjstvo",
+    "akcija": true,
+    "naslov": "5+1",
+    "tekst": "Samo ove nedelje uz pet  krofni dobijate šestu gratis! Vidimo se :)",
+    "cena": 200
+  },
+  "kolaci": {
+    "image": "../assets/cookies.png",
+    "naziv": "KOLAČI",
+    "opis": "Kolači sa komadićima čokolade",
+    "akcija": false,
+    "naslov": "",
+    "tekst": "",
+    "cena": 120
+  },
+  "jagodaKrosan": {
+    "image": "../assets/strawberry.png",
+    "naziv": "JAGODA KROSAN",
+    "opis": "Francuski kroasan sa punjenjem od jagode",
+    "akcija": true,
+    "naslov": "Kroasan sa jagodama i šlagom akcija!",
+    "tekst": "2 za 300din podeli slatki trenutak",
+    "cena": 250
+  },
+  "ruska": {
+    "image": "../assets/ruska.png",
+    "naziv": "RUSKA KAPA",
+    "opis": "Tradicionalni domaći kolač sa dva sočna patišpanja, kokos kremom, preliven čokoladom. ",
+    "akcija": false,
+    "naslov": "",
+    "tekst": "",
+    "cena": 170
+  }
+}

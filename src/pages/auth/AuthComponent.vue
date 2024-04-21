@@ -1,6 +1,6 @@
 <template>
     <div>
-        <base-card>
+        <base-card class="container">
             <form @submit.prevent="submitForm">
                 <div class="form-control">
                     <label for="email">E-Mail</label>
@@ -21,7 +21,7 @@
                 <base-button>{{ submitButtonCaption }}</base-button>
                 <base-button type="button" mode="flat" @click="switchAuthMode">{{
                 switchModeButtonCaption
-            }}</base-button>
+                    }}</base-button>
             </form>
         </base-card>
     </div>
@@ -63,7 +63,7 @@ export default {
                 this.email === '' ||
                 !this.email.includes('@') ||
                 this.password.length < 6 ||
-                this.password != this.confirmedPassword
+                (this.mode == 'signup' && this.password != this.confirmedPassword)
             ) {
                 this.formIsValid = false;
                 return;
@@ -81,7 +81,7 @@ export default {
                         password: this.password,
                     });
                 }
-                const redirectUrl = '/' + (this.$route.query.redirect || 'coaches');
+                const redirectUrl = '/' + (this.$route.query.redirect || 'home');
                 this.$router.replace(redirectUrl);
             } catch (error) {
                 this.error = error.message || 'Failed to authenticate, try later';
@@ -102,6 +102,10 @@ export default {
 };
 </script>
 <style scoped>
+.container {
+    padding-top: 60px;
+}
+
 form {
     margin: 1rem;
     padding: 1rem;

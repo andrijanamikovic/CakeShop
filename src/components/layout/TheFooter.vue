@@ -28,12 +28,13 @@ export default ({
 
 <style scoped>
 footer {
-    position: absolute;
+    position: fixed;
     bottom: 0;
     width: 100%;
-    height: 5%;
+    height: auto;
     background-color: #ffb6c1;
     display: flex;
+    z-index: 999;
 }
 
 footer .button-image {
@@ -45,6 +46,7 @@ footer .button-image {
 
 footer p {
     color: white;
+    margin: 0;
 }
 
 footer a {
@@ -82,24 +84,39 @@ h1 a.router-link-active {
 
 footer nav {
     width: calc(100% - 40px);
-    margin: auto;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    padding: 10px;
+    margin: auto;
 }
 
 .left {
     margin-right: auto;
-    /* Pushes the left paragraph to the far left */
-}
-
-.center {
-    margin: 0 auto;
-    /* Centers the center paragraph */
 }
 
 .right {
     margin-left: auto;
-    /* Pushes the right paragraph to the far right */
+}
+
+@media screen and (min-width: 600px) {
+
+    /* Apply styles for screens wider than 600px */
+    footer {
+        height: 5%;
+        /* Reset height for larger screens */
+        flex-direction: row;
+        /* Change flex-direction back to row */
+    }
+
+    footer nav {
+        width: auto;
+        /* Reset width for larger screens */
+    }
+
+    footer p {
+        margin: 0 10px;
+        /* Adjust margin for larger screens */
+    }
 }
 </style>
