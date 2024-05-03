@@ -89,6 +89,8 @@ footer nav {
     align-items: center;
     padding: 10px;
     margin: auto;
+    padding-bottom: 20px;
+
 }
 
 .left {

@@ -1,7 +1,4 @@
 export default {
-  toggleIsLoggedIn(state) {
-    state.isLoggedIn = !state.isLoggedIn;
-  },
   login(state, data) {
     const username = data.username;
     const password = data.password;
@@ -9,6 +6,7 @@ export default {
     state.isLoggedIn = users.some(
       (item) => item.password === password && item.key === username
     );
+    console.log("Jel uradio loggedIn? ", state.isLoggedIn);
     if (state.isLoggedIn) {
       state.user = users.find(
         (item) => item.password === password && item.key === username
@@ -47,5 +45,11 @@ export default {
       .catch((error) => {
         console.error("There was a problem with the fetch operation:", error);
       });
+  },
+  setUser(state, user) {
+    state.user = user;
+  },
+  setLoggedIn(state, isLoggedIn) {
+    state.isLoggedIn = isLoggedIn;
   },
 };

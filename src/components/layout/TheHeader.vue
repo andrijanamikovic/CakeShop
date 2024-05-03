@@ -3,7 +3,7 @@
         <nav>
             <ul class="back">
                 <li v-if="isLoggedIn">
-                    <v-btn icon="$vuetify" variant="text" to="/">
+                    <v-btn icon="$vuetify" variant="text" to="/" @click="logout()">
                         <v-icon class="button-image">mdi-logout</v-icon>
                     </v-btn>
                 </li>
@@ -39,10 +39,17 @@
 export default ({
     computed: {
         isLoggedIn() {
-            return true
-            // return this.$store.getters.getLoggedIn;
+            // return true
+            return this.$store.getters.getLoggedIn;
         }
-    }
+    },
+    methods: {
+        logout() {
+            this.$store.dispatch('setUser', null)
+            this.$store.dispatch('setLoggedIn', false)
+            localStorage.removeItem('loggedInUser');
+        }
+    },
 })
 </script>
 

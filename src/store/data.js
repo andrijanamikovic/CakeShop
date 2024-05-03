@@ -12,6 +12,7 @@ export default {
       ...cookies[key],
     })),
     users: [],
+    current: null,
   },
   mutations: {
     setUsers(state, users) {
@@ -20,11 +21,17 @@ export default {
         ...users[key],
       }));
     },
+    setCurrent(state, current) {
+      state.current = current;
+    },
     // Mutations to update items, if necessary
   },
   actions: {
     setUsers(context, users) {
       context.commit("setUsers", users);
+    },
+    setCurrent(context, current) {
+      context.commit("setCurrent", current);
     },
     // Actions to fetch or update items, if necessary
   },
@@ -38,6 +45,9 @@ export default {
     },
     getUsers(state) {
       return state.users;
+    },
+    getCurrent(state) {
+      return state.current;
     },
   },
 };
