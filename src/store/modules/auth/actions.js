@@ -1,11 +1,10 @@
+import data from "@/store/data";
+
 export default {
-  changeLoginStatus(context) {
-    context.commit("toggleIsLoggedIn");
-  },
-  login(context) {
-    context.commit("toggleIsLoggedIn");
+  login(context, data) {
+    context.commit("login", data);
   },
   signup(context) {
-    context.commit("toggleIsLoggedIn");
+    context.commit("register", data);
   },
 };

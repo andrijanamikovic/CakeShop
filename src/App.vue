@@ -14,6 +14,23 @@ export default {
   components: {
     HeaderComponent,
     FooterComponent
+  },
+  created() {
+    fetch('https://cakeshop-1641c-default-rtdb.europe-west1.firebasedatabase.app/users.json')
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return response.json();
+      })
+      .then(data => {
+        // Handle the data
+        this.$store.dispatch('setUsers', data)
+        console.log('Users: ', data)
+      })
+      .catch(error => {
+        console.error('There was a problem with the fetch operation:', error);
+      });
   }
 }
 </script>
@@ -30,6 +47,7 @@ html {
 }
 
 body {
+  padding-top: 10vh;
   margin: 0;
   padding: 0;
 }

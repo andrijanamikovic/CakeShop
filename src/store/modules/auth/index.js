@@ -7,6 +7,7 @@ export default {
       userId: null,
       token: null,
       isLoggedIn: false,
+      user: null,
     };
   },
   getters,

@@ -24,7 +24,7 @@
                         <v-card color="#ffdde2" class="mx-auto">
                             <v-row>
                                 <v-col cols="6">
-                                    <img class="card-image" src="../assets/cake.png" />
+                                    <img class="card-image" src="/assets/cake.png" />
                                 </v-col>
                                 <v-col cols="6" class="button-pages">
                                     <v-card-actions to="/cakes">
@@ -38,7 +38,7 @@
                         <v-card color="#ffdde2" class="mx-auto">
                             <v-row>
                                 <v-col cols="6">
-                                    <img class="card-image" src="../assets/cookies.png" to="cookies" />
+                                    <img class="card-image" src="/assets/cookies.png" to="cookies" />
                                 </v-col>
                                 <v-col cols="6" class="button-pages">
                                     <v-card-actions>
@@ -64,6 +64,12 @@ export default {
             const actions = cakes.concat(cookies).filter(item => item.akcija)
             console.log('Akcije: ', actions)
             return actions
+        }
+    },
+    methods: {
+
+        getImagePath(item) {
+            return require(item.image)
         }
     }
 }

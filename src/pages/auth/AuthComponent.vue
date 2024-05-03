@@ -1,22 +1,25 @@
 <template>
-    <div>
-        <base-card class="container">
+    <div class="container">
+        <base-card>
             <form @submit.prevent="submitForm">
                 <div class="form-control">
-                    <label for="email">E-Mail</label>
-                    <input type="email" id="email" v-model.trim="email" />
+                    <label for="username">Username</label>
+                    <input type="username" id="username" v-model.trim="username" />
                 </div>
                 <div class="form-control">
                     <label for="password">Password</label>
                     <input type="password" id="password" v-model.trim="password" />
                 </div>
-                <div class="form-control" v-if="this.mode === 'signup'">
+                <div class="form-control" v-if="mode === 'signup'">
                     <label for="password">Confirm password</label>
                     <input type="password" id="password" v-model.trim="confirmedPassword" />
                 </div>
-                <p v-if="!formIsValid">
-                    Please enter a valid email and password need to be at least 6
+                <p v-if="!formIsValid && mode === 'signup'">
+                    Please enter a valid username, and password need to be at least 6
                     characters long
+                </p>
+                <p v-if="!formIsValid && mode === 'login'">
+                    Please enter a valid username and password
                 </p>
                 <base-button>{{ submitButtonCaption }}</base-button>
                 <base-button type="button" mode="flat" @click="switchAuthMode">{{
@@ -31,13 +34,14 @@
 export default {
     data() {
         return {
-            email: '',
+            username: '',
             password: '',
             confirmedPassword: '',
             formIsValid: true,
             mode: 'login',
             isLoading: false,
             error: null,
+            users: []
         };
     },
     computed: {
@@ -60,8 +64,7 @@ export default {
         async submitForm() {
             this.formIsValid = true;
             if (
-                this.email === '' ||
-                !this.email.includes('@') ||
+                this.username === '' ||
                 this.password.length < 6 ||
                 (this.mode == 'signup' && this.password != this.confirmedPassword)
             ) {
@@ -70,17 +73,21 @@ export default {
             }
             try {
                 this.isLoading = true;
+                if (this.users.length === 0)
+                    this.users = this.$store.getters.getUsers
                 if (this.mode == 'login') {
                     await this.$store.dispatch('login', {
-                        email: this.email,
+                        username: this.username,
                         password: this.password,
+                        users: this.users
                     });
                 } else {
                     await this.$store.dispatch('signup', {
-                        email: this.email,
+                        username: this.username,
                         password: this.password,
                     });
                 }
+                localStorage.setItem('loggedInUser', JSON.stringify(this.$store.getters.getUser));
                 const redirectUrl = '/' + (this.$route.query.redirect || 'home');
                 this.$router.replace(redirectUrl);
             } catch (error) {

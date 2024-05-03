@@ -4,6 +4,7 @@ import AuthComponent from "./pages/auth/AuthComponent.vue";
 import HomeComponent from "./pages/HomeComponent.vue";
 import CakesComponent from "./pages/CakesComponent.vue";
 import CookiesComponent from "./pages/CookiesComponent.vue";
+import UserAccount from "./pages/UserAccount.vue";
 const router = createRouter({
   history: createWebHistory(),
   routes: [
@@ -12,6 +13,7 @@ const router = createRouter({
     { path: "/home", component: HomeComponent },
     { path: "/cakes", component: CakesComponent },
     { path: "/cookies", component: CookiesComponent },
+    { path: "/account", component: UserAccount}
   ],
 });
 

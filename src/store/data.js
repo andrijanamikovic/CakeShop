@@ -1,6 +1,6 @@
 import cakes from "../data/cakes.json";
 import cookies from "../data/cookies.json";
-
+// import users from "../data/users.json"
 export default {
   state: {
     cakes: Object.keys(cakes).map((key) => ({
@@ -11,11 +11,21 @@ export default {
       key: key,
       ...cookies[key],
     })),
+    users: [],
   },
   mutations: {
+    setUsers(state, users) {
+      state.users = Object.keys(users).map((key) => ({
+        key: key,
+        ...users[key],
+      }));
+    },
     // Mutations to update items, if necessary
   },
   actions: {
+    setUsers(context, users) {
+      context.commit("setUsers", users);
+    },
     // Actions to fetch or update items, if necessary
   },
   getters: {
@@ -25,6 +35,9 @@ export default {
     },
     getCookies(state) {
       return state.cookies;
+    },
+    getUsers(state) {
+      return state.users;
     },
   },
 };

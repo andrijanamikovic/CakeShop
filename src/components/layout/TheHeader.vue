@@ -16,7 +16,7 @@
                     </v-btn>
                 </li>
                 <li v-if="isLoggedIn">
-                    <v-btn icon="$vuetify" variant="text" to="/">
+                    <v-btn icon="$vuetify" variant="text" href="tel:${+38161234567}">
                         <v-icon class="button-image">mdi-phone</v-icon>
                     </v-btn>
                 </li>
@@ -26,7 +26,7 @@
                     </v-btn>
                 </li>
                 <li v-if="isLoggedIn">
-                    <v-btn icon="$vuetify" variant="text" to="/">
+                    <v-btn icon="$vuetify" variant="text" to="/account">
                         <v-icon class="button-image">mdi-account-box</v-icon>
                     </v-btn>
                 </li>
@@ -57,6 +57,7 @@ header {
     display: flex;
     justify-content: center;
     align-items: center;
+    height: 10vh;
     z-index: 999;
 }
 
