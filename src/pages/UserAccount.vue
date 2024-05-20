@@ -123,6 +123,7 @@ export default {
                 case 'password': return false;
                 case 'image': return false;
                 case 'key': return false;
+                case 'type': return false;
             }
             return true
         },

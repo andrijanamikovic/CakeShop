@@ -6,6 +6,7 @@
     "akcija": true,
     "naslov": "Čoko-manija naša najpopularnija torta je na AKCIJI!",
     "tekst": "Do kraja meseca može biti vaša za svega 2999din!",
+    "sastojci": "jaja, secer, brasno, cokolada, mleko, margarin",
     "cena": 2999
   },
   "duga": {
@@ -15,6 +16,7 @@
     "akcija": false,
     "naslov": "",
     "tekst": "",
+    "sastojci": "jaja, secer, brasno, vanila, boje za hranu, mleko, margarin",
     "cena": 1500
   },
   "jagoda": {
@@ -24,6 +26,7 @@
     "akcija": false,
     "naslov": "",
     "tekst": "",
+    "sastojci": "jaja, secer, brasno, jagoda, mleko, margarin",
     "cena": 3500
   },
   "limun": {
@@ -33,6 +36,7 @@
     "akcija": false,
     "naslov": "",
     "tekst": "",
+    "sastojci": "jaja, secer, brasno, limun, mleko, margarin",
     "cena": 2500
   },
   "malina": {
@@ -42,6 +46,7 @@
     "akcija": false,
     "naslov": "",
     "tekst": "",
+    "sastojci": "jaja, secer, brasno, malina, mleko, margarin",
     "cena": 3800
   },
   "oreo": {
@@ -51,6 +56,7 @@
     "akcija": false,
     "naslov": "",
     "tekst": "",
+    "sastojci": "jaja, secer, brasno, oreo keks, mleko, margarin",
     "cena": 2999
   }
 }

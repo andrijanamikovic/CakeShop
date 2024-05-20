@@ -6,7 +6,6 @@ export default {
     state.isLoggedIn = users.some(
       (item) => item.password === password && item.key === username
     );
-    console.log("Jel uradio loggedIn? ", state.isLoggedIn);
     if (state.isLoggedIn) {
       state.user = users.find(
         (item) => item.password === password && item.key === username
@@ -19,9 +18,10 @@ export default {
     const username = data.username;
     const password = data.password;
     const user = {
-      username: {
+      [username]: {
         password: password,
         username: username,
+        type: "user",
       },
     };
     fetch(
@@ -37,9 +37,8 @@ export default {
         }
         return response.json();
       })
-      .then((data) => {
+      .then(() => {
         // Handle the data
-        console.log("Dodat novi korisnik? ", data);
         state.user = user;
       })
       .catch((error) => {

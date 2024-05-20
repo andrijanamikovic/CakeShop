@@ -16,6 +16,7 @@ export default {
     FooterComponent
   },
   created() {
+    localStorage.removeItem('loggedInUser')
     fetch('https://cakeshop-1641c-default-rtdb.europe-west1.firebasedatabase.app/users.json')
       .then(response => {
         if (!response.ok) {
@@ -31,7 +32,7 @@ export default {
       .catch(error => {
         console.error('There was a problem with the fetch operation:', error);
       });
-  }
+  },
 }
 </script>
 

@@ -7,7 +7,7 @@
             <v-carousel-item v-for="(chunk, index) in chunkedCookies" :key="index">
                 <v-row>
                     <v-col v-for="item in chunk" :key="item.key" cols="16" sm="12" md="4" lg="4">
-                        <v-card class="card-container" elevated>
+                        <v-card class="card-container" @click="goToPage(item.key)" elevated>
                             <div class="card-content">
                                 <v-img class="small-image" :src="item.image" contain />
                                 <v-card-text class="text-center">{{ item.naziv }}</v-card-text>
@@ -34,6 +34,11 @@ export default {
                 }
                 return acc;
             }, []);
+        }
+    },
+    methods: {
+        goToPage(itemId) {
+            this.$router.push({ name: 'CookieItem', params: { itemId } })
         }
     }
 }

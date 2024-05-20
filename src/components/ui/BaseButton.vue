@@ -44,6 +44,18 @@ a {
   display: inline-block;
 }
 
+.accept:hover,
+.accept:active {
+  background-color: #26e71c;
+  border-color: #26e71c;
+}
+
+.reject:hover,
+.reject:active {
+  background-color: #cc0a27;
+  border-color: #cc0a27;
+}
+
 a:hover,
 a:active,
 button:hover,
@@ -62,6 +74,16 @@ button:active {
   background-color: transparent;
   border-color: #f791a1;
   color: #f791a1;
+}
+
+.accept {
+  background-color: #66eb5f;
+  border-color: #66eb5f;
+}
+
+.reject {
+  background-color: #ed0e2f;
+  border-color: #ed0e2f;
 }
 
 .flat:hover,

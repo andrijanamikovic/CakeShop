@@ -24,7 +24,7 @@
                 <base-button>{{ submitButtonCaption }}</base-button>
                 <base-button type="button" mode="flat" @click="switchAuthMode">{{
                 switchModeButtonCaption
-                    }}</base-button>
+            }}</base-button>
             </form>
         </base-card>
     </div>
@@ -112,7 +112,7 @@ export default {
 </script>
 <style scoped>
 .container {
-    padding-top: 60px;
+    padding-top: 200px;
 }
 
 form {

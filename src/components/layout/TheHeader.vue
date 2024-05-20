@@ -21,7 +21,7 @@
                     </v-btn>
                 </li>
                 <li v-if="isLoggedIn">
-                    <v-btn icon="$vuetify" variant="text" to="/">
+                    <v-btn icon="$vuetify" variant="text" to="/cart">
                         <v-icon class="button-image">mdi-cart-outline</v-icon>
                     </v-btn>
                 </li>
