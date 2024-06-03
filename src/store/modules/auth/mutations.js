@@ -15,14 +15,14 @@ export default {
     }
   },
   register(state, data) {
-    const username = data.username;
-    const password = data.password;
+    console.log("Data: ", data);
     const user = {
-      [username]: {
-        password: password,
-        username: username,
-        type: "user",
-      },
+      password: data.password,
+      key: data.username,
+      type: "user",
+      Adresa: "",
+      image: "",
+      ImePrezime: "",
     };
     fetch(
       "https://cakeshop-1641c-default-rtdb.europe-west1.firebasedatabase.app/users.json",
@@ -40,6 +40,7 @@ export default {
       .then(() => {
         // Handle the data
         state.user = user;
+        state.isLoggedIn = true;
       })
       .catch((error) => {
         console.error("There was a problem with the fetch operation:", error);

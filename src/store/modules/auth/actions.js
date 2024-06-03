@@ -1,10 +1,8 @@
-import data from "@/store/data";
-
 export default {
   login(context, data) {
     context.commit("login", data);
   },
-  signup(context) {
+  register(context, data) {
     context.commit("register", data);
   },
   setUser(context, user) {

@@ -1,19 +1,20 @@
 <template>
     <div class="container">
-        <p>Nije mi implementirano ovo</p>
+        <div class="image-container">
+            <img class="button-image" src="../../public/assets/addUser.png" />
+        </div>
         <v-container class="flex-container">
-            <v-icon class="button-image">mdi-account-plus-outline</v-icon>
             <div class="form-container">
-                <v-form @submit.prevent="updateAccount">
+                <v-form @submit.prevent="registerEmployee">
                     <v-row>
                         <v-col cols="12" md="6" v-for="(value, key) in userFiltered" :key="key" v-model="user">
-                            <v-text-field :label="key"></v-text-field>
+                            <v-text-field :label="key" v-model="newUser[key]"></v-text-field>
                         </v-col>
                     </v-row>
                     <base-button class="submitButton" type="submit" color="primary">Submit</base-button>
                 </v-form>
-                <p color="mint">{{ updateMessage }}</p>
             </div>
+            <p color="mint">{{ updateMessage }}</p>
         </v-container>
     </div>
 </template>
@@ -23,6 +24,7 @@ export default {
     data() {
         return {
             user: null,
+            newUser: null,
             isEditing: false,
             editedData: {},
             isChangingPassword: false,
@@ -35,10 +37,15 @@ export default {
     created() {
         const userJSON = localStorage.getItem('loggedInUser')
         this.user = userJSON ? JSON.parse(userJSON) : null
+        this.newUser = Object.keys(this.user).reduce((acc, key) => {
+            acc[key] = null;
+            return acc;
+        }, {});
+        console.log('Korisnici: ', this.users)
     },
     computed: {
         userFiltered() {
-            const fieldsToExclude = ["type", "image", "key"]
+            const fieldsToExclude = ["type", "image"]
             const filteredObject = {};
             for (const key in this.user) {
                 if (!fieldsToExclude.includes(key)) {
@@ -46,36 +53,47 @@ export default {
                 }
             }
             return filteredObject
+        },
+        users() {
+            return this.$store.getters.getUsers
         }
     },
     methods: {
-        submitEdit() {
-            // Update accountData with editedData
-            this.user = Object.assign({}, this.user);
-            console.log('user', this.user)
-        },
-        async updateAccount() {
-            // tu treba da dodam da dodaje novog korisnika tipa worker!!!
-            const key = this.user.key
-            console.log('User: ', JSON.stringify(this.user))
-            const response = await fetch(`https://cakeshop-1641c-default-rtdb.europe-west1.firebasedatabase.app/users/${key}.json`, {
-                method: 'PUT',
-                body: JSON.stringify(this.user)
-            })
+        async registerEmployee() {
+            const key = this.newUser.key
+            console.log('Svi korisnici: ', this.users)
+            if (this.users.find(item => item.key === key) !== undefined) {
+                this.updateMessage = 'Already have this username'
+                return
+            }
+            const adresa = this.newUser["Adresa"]
+            const name = this.newUser["Ime Prezime"]
+            const number = this.newUser["Kontakt telefon"]
+            const email = this.newUser["email"]
+            const password = this.newUser["password"]
+            const registerWorker = {
+                "Adresa": adresa,
+                "Ime Prezime": name,
+                "Kontakt telefon": number,
+                "email": email,
+                "key": key,
+                "image": "",
+                "password": password,
+                "type": "worker"
+            }
+            const response = await fetch(
+                "https://cakeshop-1641c-default-rtdb.europe-west1.firebasedatabase.app/users.json",
+                {
+                    method: "POST",
+                    body: JSON.stringify(registerWorker),
+                }
+            )
             if (!response.ok) {
                 this.updateMessage = 'Failed to update data'
             } else {
                 this.updateMessage = 'Data updated'
             }
             this.isChangingPassword = false
-        },
-        showField(key) {
-            switch (key) {
-                case 'image': return false;
-                case 'key': return false;
-                case 'type': return false;
-            }
-            return true
         },
     }
 }
@@ -84,37 +102,50 @@ export default {
 
 <style scoped>
 .container {
+    display: flex;
+    align-content: center;
     background-color: #ffdde2;
     width: 100%;
     height: 100vh;
     padding-top: 150px;
+    margin: 0;
+}
+
+
+.image-container {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    padding-left: 30px;
 }
 
 .button-image {
-    size: 100px;
+    flex: 1;
+    display: flex;
+    align-content: center;
+    justify-items: center;
+    padding-left: 30px;
+    width: 300px;
+    height: 200px;
 }
 
 .text-center {
     text-align: center;
 }
 
-.flex-container {
-    display: flex;
-}
-
-.left-image {
-    flex: 1;
-    max-width: 50%;
-    /* Fit the image within the available space */
-    max-height: 50%;
-    /* Take up the entire available space */
-    margin-right: 20px;
-    /* Adjust as needed */
-}
-
 .form-container {
     flex: 2;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     /* Take up 2/3 of the available space */
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    width: 80%;
 }
 
 label {

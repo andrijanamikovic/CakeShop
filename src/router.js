@@ -8,6 +8,7 @@ import UserAccount from "./pages/UserAccount.vue";
 import ItemComponent from "./pages/ItemComponent.vue";
 import CartComponent from "./pages/CartComponent.vue";
 import AddWorkerComponent from "./pages/AddWorkerComponent.vue";
+import AddItemComponent from "./pages/AddItemComponent.vue";
 
 const router = createRouter({
   history: createWebHistory(),
@@ -38,7 +39,12 @@ const router = createRouter({
     {
       path: "/addWorker",
       component: AddWorkerComponent,
-      meta: { requiresAuth: true },
+      meta: { requiresAuth: true, requiresAdmin: true },
+    },
+    {
+      path: "/addItem",
+      component: AddItemComponent,
+      meta: { requiresAuth: true, requiresAdmin: true },
     },
   ],
 });
@@ -46,6 +52,9 @@ const router = createRouter({
 router.beforeEach((to, from, next) => {
   const isLoggedIn = checkIfLoggedIn(); // You need to implement this function
   console.log("Jel proveravas ti?", isLoggedIn);
+  if (to.meta.requiresAdmin && !isAdmin) {
+    next("/login");
+  }
   if (to.meta.requiresAuth && !isLoggedIn) {
     console.log("Jel udjes ovde?");
     // If the route requires authentication and the user is not logged in, redirect to login
@@ -60,6 +69,9 @@ function checkIfLoggedIn() {
   // Implement your logic to check if the user is logged in
   // For example, you can check if there is a token in local storage
   return localStorage.getItem("loggedInUser") !== null;
+}
+function isAdmin() {
+  return localStorage.getItem("loggedInUser")?.type === "worker";
 }
 
 export default router;

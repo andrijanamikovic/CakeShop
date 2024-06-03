@@ -82,7 +82,10 @@ export default {
                         users: this.users
                     });
                 } else {
-                    await this.$store.dispatch('signup', {
+                    if (this.users.some(item => item.key === this.username)) {
+                        throw ('Username already exists')
+                    }
+                    await this.$store.dispatch('register', {
                         username: this.username,
                         password: this.password,
                     });
