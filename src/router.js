@@ -9,6 +9,7 @@ import ItemComponent from "./pages/ItemComponent.vue";
 import CartComponent from "./pages/CartComponent.vue";
 import AddWorkerComponent from "./pages/AddWorkerComponent.vue";
 import AddItemComponent from "./pages/AddItemComponent.vue";
+import OrdersComponent from "./pages/OrdersComponent.vue";
 
 const router = createRouter({
   history: createWebHistory(),
@@ -44,6 +45,11 @@ const router = createRouter({
     {
       path: "/addItem",
       component: AddItemComponent,
+      meta: { requiresAuth: true, requiresAdmin: true },
+    },
+    {
+      path: "/orders",
+      component: OrdersComponent,
       meta: { requiresAuth: true, requiresAdmin: true },
     },
   ],

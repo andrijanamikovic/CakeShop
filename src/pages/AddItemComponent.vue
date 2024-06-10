@@ -9,7 +9,7 @@
                         </v-col>
                         <v-col cols="6" class="button-pages">
                             <v-btn class="action-button" color="white" text="DODAJ TORTU"
-                                @click="chose('cake')"></v-btn>
+                                @click="chose('cakes')"></v-btn>
                         </v-col>
                     </v-row>
                 </v-card>
@@ -22,7 +22,7 @@
                         </v-col>
                         <v-col cols="6" class="button-pages">
                             <v-btn class="action-button" color="white" text="DODAJ KOLAČ"
-                                @click="chose('cookie')"></v-btn>
+                                @click="chose('cookies')"></v-btn>
                         </v-col>
                     </v-row>
                 </v-card>
@@ -50,14 +50,14 @@
                     </v-row>
                     <v-row>
                         <base-button class="submitButton" mode="accept" color="accept"
-                            @click="addItem">Submit</base-button>
+                            @click="addItem">Dodaj</base-button>
                         <base-button class="submitButton" mode="reject" color="reject"
-                            @click="returnBack">Discard</base-button>
+                            @click="returnBack">Odustani</base-button>
                     </v-row>
                 </v-form>
             </v-col>
         </v-row>
-
+        <p color="mint">{{ updateMessage }}</p>
     </v-container>
 </template>
 
@@ -76,6 +76,7 @@ export default {
             sastojci: '',
             cena: 0,
             isDone: false,
+            updateMessage: "",
         }
     },
     methods: {
@@ -86,9 +87,32 @@ export default {
         selectImage(item) {
             this.selectedImage = item
         },
-        addItem() {
+        async addItem() {
             //add item to json file
-            return 0
+            const newItem = {
+                [this.naziv]: {
+                    "image": this.selectedImage,
+                    "naziv": this.naziv,
+                    "opis": this.opis,
+                    "akcija": false,
+                    "naslov": "",
+                    "tekst": "",
+                    "sastojci": this.sastojci,
+                    "cena": this.cena
+                }
+            }
+            const response = await fetch(
+                `https://cakeshop-1641c-default-rtdb.europe-west1.firebasedatabase.app/${this.type}.json`,
+                {
+                    method: "POST",
+                    body: JSON.stringify(newItem),
+                }
+            )
+            if (!response.ok) {
+                this.updateMessage = 'Failed to add new item'
+            } else {
+                this.updateMessage = 'New item added'
+            }
         },
         returnBack() {
             this.type = ""
@@ -98,7 +122,7 @@ export default {
     watch: {
         type(newType) {
             this.isDone = false
-            if (newType === 'cake') {
+            if (newType === 'cakes') {
                 this.images = Object.keys(cakes).map(key => cakes[key].image)
             } else {
                 this.images = Object.keys(cookies).map(key => cookies[key].image)
@@ -115,6 +139,7 @@ export default {
     justify-content: center;
     align-items: left;
     padding-top: 200px;
+    padding-bottom: 100px;
 }
 
 .pages-container {

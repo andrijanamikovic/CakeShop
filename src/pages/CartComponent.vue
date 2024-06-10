@@ -53,23 +53,21 @@ export default {
         },
         removeItem(item) {
             let items = this.items
-            console.log('uklanjam: ', item)
-            console.log('items pre', items)
             items = items.filter(data => data.item != item)
-            console.log('items posle', items)
             this.$store.dispatch('setItems', items)
         },
         acceptOrder() {
             const user = this.getLoggedInUser?.key
             const items = this.items
             const data = items.map(data => ({
-                [data.item.key]: data.quantity
+                "key": data.item.key,
+                "quantity": data.quantity
             }))
             console.log('data: ', data, 'user ', user)
             fetch(
                 `https://cakeshop-1641c-default-rtdb.europe-west1.firebasedatabase.app/orders/${user}.json`,
                 {
-                    method: "PUT",
+                    method: "POST",
                     body: JSON.stringify(data),
                 }
             )

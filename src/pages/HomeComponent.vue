@@ -1,6 +1,8 @@
 <template>
     <v-container>
         <div v-if="userNotAdmin">
+            <v-alert class="alert-container" v-if="this.message" :color="this.type" :icon="`$` + this.type"
+                title="Alert title" :text="this.message"></v-alert>
             <v-col>
                 <v-container>
                     <div class="carousel-container">
@@ -74,6 +76,12 @@
 
 <script>
 export default {
+    data() {
+        return {
+            message: "",
+            type: ""
+        }
+    },
     computed: {
         actions() {
             const cakes = JSON.parse(JSON.stringify(this.$store.getters.getCakes))
@@ -88,15 +96,103 @@ export default {
         },
         userAdmin() {
             return this.$store.getters.getUser?.type === 'worker'
+        },
+        user() {
+            return this.$store.getters.getUser
         }
     },
     methods: {
-
         getImagePath(item) {
             return require(item.image)
         },
         goTo(path) {
             this.$router.replace('/' + path);
+        }
+    },
+    created() {
+        if (this.userAdmin) {
+            fetch('https://cakeshop-1641c-default-rtdb.europe-west1.firebasedatabase.app/orders.json')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    // Handle the data
+                    this.$store.dispatch('setOrders', data);
+                    console.log('Items: ', data);
+                })
+                .catch(error => {
+                    console.error('There was a problem with the fetch operation:', error);
+                });
+        } else {
+            console.log('user: ', this.user);
+            fetch(
+                `https://cakeshop-1641c-default-rtdb.europe-west1.firebasedatabase.app/accepted/${this.user.key}.json`,
+                {
+                    method: "GET",
+                }
+            )
+                .then((response) => {
+                    if (!response.ok) {
+                        throw new Error("Network response was not ok");
+                    }
+                    return response.json();
+                })
+                .then((data) => {
+                    if (data) {
+                        const keys = Object.keys(data)
+                        if (keys.length > 0) {
+                            const firstKey = keys[0]
+                            this.message = 'Vasa narudbina bice spremna za ' + data[firstKey].time
+                            this.type = "success"
+                        }
+                    }
+                    fetch(
+                        `https://cakeshop-1641c-default-rtdb.europe-west1.firebasedatabase.app/accepted/${this.user.key}.json`,
+                        {
+                            method: "DELETE",
+                        }
+                    )
+                })
+                .catch((error) => {
+                    console.error("There was a problem with the fetch operation:", error);
+                });
+
+            fetch(
+                `https://cakeshop-1641c-default-rtdb.europe-west1.firebasedatabase.app/rejected/${this.user.key}.json`,
+                {
+                    method: "GET",
+                }
+            )
+                .then((response) => {
+                    if (!response.ok) {
+                        throw new Error("Network response was not ok");
+                    }
+                    return response.json();
+                })
+                .then((data) => {
+                    if (data) {
+                        const keys = Object.keys(data)
+                        console.log('Kljuc ovde: ', keys)
+                        if (keys.length > 0) {
+                            const firstKey = keys[0]
+                            this.message = 'Vasa narudbina je odbijena zbog: ' + data[firstKey].message
+                            this.type = "error"
+                            console.log("Poruka: ", this.message)
+                        }
+                    }
+                    fetch(
+                        `https://cakeshop-1641c-default-rtdb.europe-west1.firebasedatabase.app/rejected/${this.user.key}.json`,
+                        {
+                            method: "DELETE",
+                        }
+                    )
+                        .catch((error) => {
+                            console.error("There was a problem with the fetch operation:", error);
+                        });
+                });
         }
     }
 }
@@ -104,11 +200,20 @@ export default {
 
 
 <style scoped>
+.alert-container {
+    display: flex;
+    justify-content: center;
+    align-items: left;
+    color: white;
+    font-size: 12px;
+    padding-top: 120px;
+}
+
 .carousel-container {
     display: flex;
     justify-content: center;
     align-items: left;
-    padding-top: 60px;
+    padding-top: 120px;
 }
 
 .carousel-item {

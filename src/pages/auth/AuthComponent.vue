@@ -92,6 +92,7 @@ export default {
                 }
                 if (!this.$store.getters.getLoggedIn) throw ('Wrong username or password')
                 localStorage.setItem('loggedInUser', JSON.stringify(this.$store.getters.getUser));
+            
                 const redirectUrl = '/' + (this.$route.query.redirect || 'home');
                 this.$router.replace(redirectUrl);
             } catch (error) {

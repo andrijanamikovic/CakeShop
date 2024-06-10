@@ -16,7 +16,7 @@ export default {
     FooterComponent
   },
   created() {
-    localStorage.removeItem('loggedInUser')
+    // localStorage.removeItem('loggedInUser')
     fetch('https://cakeshop-1641c-default-rtdb.europe-west1.firebasedatabase.app/users.json')
       .then(response => {
         if (!response.ok) {
@@ -28,6 +28,36 @@ export default {
         // Handle the data
         this.$store.dispatch('setUsers', data)
         console.log('Users: ', data)
+      })
+      .catch(error => {
+        console.error('There was a problem with the fetch operation:', error);
+      });
+    fetch('https://cakeshop-1641c-default-rtdb.europe-west1.firebasedatabase.app/cookies.json')
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return response.json();
+      })
+      .then(data => {
+        // Handle the data
+        this.$store.dispatch('setCookies', data)
+        console.log('Cookies: ', data)
+      })
+      .catch(error => {
+        console.error('There was a problem with the fetch operation:', error);
+      });
+    fetch('https://cakeshop-1641c-default-rtdb.europe-west1.firebasedatabase.app/cakes.json')
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return response.json();
+      })
+      .then(data => {
+        // Handle the data
+        this.$store.dispatch('setCakes', data)
+        console.log('Cakes: ', data)
       })
       .catch(error => {
         console.error('There was a problem with the fetch operation:', error);
